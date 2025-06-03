@@ -55,13 +55,23 @@ const [score,setscore]=useState(0)
 const [audioplay,setaudoplay]=useState(false)
 
  const [coinss,setcoins]=useState(false)
-
+const startGame = () => {
+  let word = words[Math.floor(Math.random() * words.length)];
+  setgameWords(word);
+  setscore(0);
+  setime(6);
+  setresult('');
+  setaudoplay(false);
+  setwordInput('');
+};
 
 useEffect(()=>{
   let word =words[Math.floor(Math.random()*words.length)]
   setgameWords(word)
 
 }, [])
+
+
 // const onBtnStartHandler = () => {
 //   let word = words[Math.floor(Math.random() * words.length)];
 //   setgameWords(word);
@@ -113,12 +123,10 @@ useEffect(()=>{
   
   const interval =setInterval(() => {
     setime(prevtime=>{
-     console.log(prevtime);
-     
-
+    //  console.log(prevtime);
       if(prevtime>0){
 
-        console.log(prevtime);
+        // console.log(prevtime);
 
         return prevtime-1
 
@@ -128,17 +136,13 @@ useEffect(()=>{
          audiop.play().catch(err=>console.log(err))
          setaudoplay(true) 
         setresult('game over!!')
-    
-
-    setwordInput('')
-    
-         return 0;   
+      setwordInput('')
+       return 0;   
       }
-      
     })
 }, 1000);
  return () => clearInterval(interval); 
-},[]);
+},[time,audioplay,result]);
 
 
 
@@ -177,7 +181,7 @@ useEffect(()=>{
 </div>
 
 <div className='flex justify-center items-center'>
-   <button type='button' className='text-gray-200 border bg-gray-700 mt-16 p-4 font-semibold border-none rounded-full focus:outline-none focus:ring-4 focus:ring-aqua-900 transition' /*onClick={startGame}*/>start game</button>
+   <button type='button' className='text-gray-200 border bg-gray-700 mt-16 p-4 font-semibold border-none rounded-full focus:outline-none focus:ring-4 focus:ring-aqua-900 transition' onClick={startGame}>start game</button>
 </div> 
 
 
